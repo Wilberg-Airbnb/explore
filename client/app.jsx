@@ -39,10 +39,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>HELLO WORLD</h1>
+        <h1>EXPLORE</h1>
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('explore'));
+export default App;
