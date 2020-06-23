@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useLocation } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+      console.log(window.location.href)
   }
 
   render() {

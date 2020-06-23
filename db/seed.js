@@ -5,32 +5,32 @@ const db = require('./index');
 const readPromise = Promise.promisify(fs.readFile);
 const promiseQuery = Promise.promisify(db.query).bind(db);
 
-// readPromise(__dirname + '/dummyData.txt', 'utf-8')
-// 	.then(text => {
-// 		return JSON.parse(text);
-// 	})
-// 	.then(json => {
-// 		let listingInserts = json.map(listing => {
-// 			let listingQuery = `INSERT INTO reservation (listingId, standardPrice, cleaningFee, weeklyDiscount, refundable) VALUES (${listing.listingId}, ${listing.standardPrice}, ${listing.cleaningFee}, ${listing.weeklyDiscount}, ${listing.refundable})`
+readPromise(__dirname + '/dummyData.txt', 'utf-8')
+	.then(text => {
+		return JSON.parse(text);
+	})
+	.then(json => {
+		let listingInserts = json.map(listing => {
+			let listingQuery = `INSERT INTO explore (place, longitude, latitude, listingId) VALUES ('${listing.place}', '${listing.longitude}', '${listing.latitude}', ${listing.listingId})`;
 
-// 			return promiseQuery(listingQuery)
-// 				.then((results) => {
-// 					console.log('reservation query success!', results);
+			return promiseQuery(listingQuery)
+				.then(results => {
+					console.log('explore query success! ', results);
 
-// 					let dateInserts = listing.availableDates.map(date => {
-// 						let dateQuery = `INSERT INTO dates (availableDate, fee, reservation_id) VALUES ('${date.date}', ${date.fee}, (SELECT id FROM reservation WHERE listingId = ${listing.listingId}))`;
-// 						return promiseQuery(dateQuery);
-// 					})
+					let optInserts = listing.nearBy.map(opt => {
+						let optQuery = `INSERT INTO options (opt, explore_id) VALUES ('${opt.opt}', (SELECT id FROM explore WHERE listingId = ${listing.listingId}))`;
+						return promiseQuery(optQuery)
+					})
 
-// 					return Promise.all(dateInserts);
-// 				})
-// 				.catch(err => {
-// 					console.log('promsie query chain failed: ', err);
-// 				})
-// 		})
+					return Promise.all(optInserts);
+				})
+				.catch(err => {
+					console.log('listingQuery chain failed: ', err);
+				})
+		})
 
-// 		return Promise.all(listingInserts);
-// 	})
-// 	.catch(err => {
-// 		console.error('read promise chain failed', err);
-// 	})
+		return Promise.all(listingInserts);
+	})
+	.catch(err => {
+		console.log('read promise chain failed: ', err)
+	})
