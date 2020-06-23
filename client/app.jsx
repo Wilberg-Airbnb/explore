@@ -8,7 +8,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-      console.log(window.location.href)
+      console.log()
   }
 
   render() {

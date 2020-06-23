@@ -1,13 +1,12 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 app.use(express.static(__dirname + '../../public'));
 
 app.get('/:listingId', (req, res) => {
-    //this is an example route to test 
-    console.log(req.path)
-    // res.sendStatus(200);
-    res.send()
+    var itemPage = path.join(__dirname, '../public/index.html');
+    res.sendFile(itemPage);
 })
 
 app.listen(3001, () => {
