@@ -20,11 +20,11 @@ class App extends React.Component {
     var listingId = window.location.href.split('/')[3];
     axios.get(`/reservation/${listingId}`)
       .then(res => {
-        console.log(res.data.listingId)
+        console.log(res.data)
 
         this.setState({
           listingId: res.data.listingId,
-          location: res.data.location,
+          location: res.data.place,
           longitude: res.data.longitude,
           latitude: res.data.latitude,
           nearBy: res.data.nearBy
