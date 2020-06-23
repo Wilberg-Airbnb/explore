@@ -18,7 +18,7 @@ class App extends React.Component {
 
   componentDidMount() {
     var listingId = window.location.href.split('/')[3];
-    axios.get(`/reservation/${listingId}`)
+    axios.get(`/explore/${listingId}`)
       .then(res => {
         console.log(res.data)
 

@@ -9,7 +9,7 @@ const promiseQuery = Promise.promisify(db.query).bind(db);
 app.use(express.static(__dirname + '../../public'));
 app.use(express.json())
 
-app.get('/reservation/:listingId', (req, res) => {
+app.get('/explore/:listingId', (req, res) => {
     var listingId = req.path.split('/')[2];
     var query = `SELECT * FROM explore INNER JOIN options ON explore.id = options.explore_id WHERE listingId = ${listingId}`
 
