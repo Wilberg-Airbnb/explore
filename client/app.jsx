@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      listingId: null,
+      listingId: JSON.parse(window.location.href.split('/')[3]),
       location: "",
       longitude: "",
       latitude: "",
@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    var listingId = window.location.href.split('/')[3];
+    var listingId = this.state.listingId;
     axios.get(`/explore/${listingId}`)
       .then(res => {
         console.log(res.data)
